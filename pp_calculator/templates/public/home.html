@@ -27,12 +27,6 @@
 <body>
     <div class="ui text container">
       <h1 class="ui dividing header">Purchasing Power Calculator</h1>
-        <p> You can calculate how much you need to make to ensure that your purchasing
-        power stays the same when thinking about moving to a new location. The figures are
-        determined by using the Regional Price Parity data from the
-            <a href="https://www.bea.gov/newsreleases/regional/rpp/rpp_newsrelease.htm">
-                Bureau of EconomicAnalysis</a>
-        .</p>
         <div class="ui grid center aligned container">
             <div class="row">
                 <div class="column">
@@ -53,6 +47,7 @@
                 </div>
             </div>
         </div>
+        <br>
         <p style="margin-bottom: 5px"> I live in</p>
         <select class="ui search dropdown" id="state1" style="margin-right: 15px">
             {% for state in drop_down_data|dictsort %}
@@ -78,6 +73,12 @@
             <input type="number" placeholder="Amount" id="income" value="50000" style="">
             <div class="ui basic label">.00</div>
         </div>
+        <br>
+        <br>
+            <p>The figures are calculated using the Regional Price Parity data from the
+            <a href="https://www.bea.gov/newsreleases/regional/rpp/rpp_newsrelease.htm">
+                Bureau of EconomicAnalysis</a>
+        .</p>
     </div>
 
     <!-- JavaScript at the bottom for fast page loading -->
