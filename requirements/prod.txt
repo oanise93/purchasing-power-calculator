@@ -8,11 +8,6 @@ Jinja2==2.9.6
 itsdangerous==0.24
 click>=5.0
 
-# Database
-Flask-SQLAlchemy==2.2
-psycopg2==2.7.1
-SQLAlchemy==1.1.11
-
 # Migrations
 Flask-Migrate==2.0.4
 
