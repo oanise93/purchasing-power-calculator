@@ -53,7 +53,6 @@
                 </div>
             </div>
         </div>
-
         <p style="margin-bottom: 5px"> I live in</p>
         <select class="ui search dropdown" id="state1" style="margin-right: 15px">
             {% for state in drop_down_data|dictsort %}
@@ -79,12 +78,8 @@
             <input type="number" placeholder="Amount" id="income" value="50000" style="width: 300px">
             <div class="ui basic label">.00</div>
         </div>
-
-        <br>
-        <br>
-        <br>
-
     </div>
+
     <!-- JavaScript at the bottom for fast page loading -->
     {% assets "js_all" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
