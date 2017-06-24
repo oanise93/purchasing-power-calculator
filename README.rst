@@ -26,7 +26,7 @@ environment variables ::
 Then run the following commands to bootstrap your environment ::
 
     git clone https://github.com/oanise93/purchasing-power-calculator
-    cd col_calculator
+    cd pp_calculator
     pip install -r requirements/dev.txt
     bower install
     flask run
