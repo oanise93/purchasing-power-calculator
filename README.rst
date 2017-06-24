@@ -1,8 +1,10 @@
 ===============================
-COL Calculator
+Purchasing Power Calculator
 ===============================
 
-A cost of living calculator
+This is a Flask App based off of the template from <a href="https://github.com/sloria/cookiecutter-flask">
+cookiecutter-flask. The data used to calculate the income needed for equivalent purchasing power is from
+the Bureau of Economic Analysis's 2015 regional price parities released on June 22, 2017.
 
 
 Quickstart
@@ -65,17 +67,3 @@ To run all tests, run ::
     flask test
 
 
-Migrations
-----------
-
-Whenever a database migration needs to be made. Run the following commands ::
-
-    flask db migrate
-
-This will generate a new migration script. Then run ::
-
-    flask db upgrade
-
-To apply the migration.
-
-For a full migration command reference, run ``flask db --help``.
