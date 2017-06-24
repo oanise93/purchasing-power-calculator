@@ -15,7 +15,7 @@ add the following to ``.bashrc`` or ``.bash_profile``.
 
 .. code-block:: bash
 
-    export COL_CALCULATOR_SECRET='something-really-secret'
+    export PP_CALCULATOR_SECRET='something-really-secret'
 
 Before running shell commands, set the ``FLASK_APP`` and ``FLASK_DEBUG``
 environment variables ::
@@ -25,7 +25,7 @@ environment variables ::
 
 Then run the following commands to bootstrap your environment ::
 
-    git clone https://github.com/oanise93/col_calculator
+    git clone https://github.com/oanise93/purchasing-power-calculator
     cd col_calculator
     pip install -r requirements/dev.txt
     bower install
