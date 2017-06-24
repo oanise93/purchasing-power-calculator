@@ -3,7 +3,7 @@ Purchasing Power Calculator
 ===============================
 
 This is a Flask App based off of the template from <a href="https://github.com/sloria/cookiecutter-flask">
-cookiecutter-flask. The data used to calculate the income needed for equivalent purchasing power is from
+cookiecutter-flask</a>. The data used to calculate the income needed for equivalent purchasing power is from
 the Bureau of Economic Analysis's 2015 regional price parities released on June 22, 2017.
 
 
