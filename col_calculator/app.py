@@ -4,7 +4,7 @@ from flask import Flask, render_template
 
 from col_calculator import commands, public, user
 from col_calculator.assets import assets
-from col_calculator.extensions import bcrypt, cache, csrf_protect, db, debug_toolbar, login_manager, migrate
+from col_calculator.extensions import bcrypt, cache, csrf_protect, debug_toolbar
 from col_calculator.settings import ProdConfig
 
 
@@ -18,7 +18,6 @@ def create_app(config_object=ProdConfig):
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
-    register_shellcontext(app)
     register_commands(app)
     return app
 
@@ -28,11 +27,8 @@ def register_extensions(app):
     assets.init_app(app)
     bcrypt.init_app(app)
     cache.init_app(app)
-    db.init_app(app)
     csrf_protect.init_app(app)
-    login_manager.init_app(app)
     debug_toolbar.init_app(app)
-    migrate.init_app(app, db)
     return None
 
 
@@ -53,17 +49,6 @@ def register_errorhandlers(app):
     for errcode in [401, 404, 500]:
         app.errorhandler(errcode)(render_error)
     return None
-
-
-def register_shellcontext(app):
-    """Register shell context objects."""
-    def shell_context():
-        """Shell context objects."""
-        return {
-            'db': db,
-            'User': user.models.User}
-
-    app.shell_context_processor(shell_context)
 
 
 def register_commands(app):
