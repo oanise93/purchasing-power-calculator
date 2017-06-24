@@ -8,7 +8,7 @@
   <meta charset="utf-8">
 
   <title>
-    COL Calculator
+    Purchasing Power Calculator
   </title>
   <meta name="description" content="{% block meta_description %}{% endblock %}">
   <meta name="author" content="{% block meta_author %}{% endblock %}">
@@ -26,15 +26,153 @@
 </head>
 <body>
     <div class="ui text container">
-      <h1 class="ui dividing header">Cost of Living Calculator</h1>
+      <h1 class="ui dividing header">Purchasing Power Calculator</h1>
+        <p> You can calculate how much you need to make to ensure that your purchasing
+        power stays the same when thinking about moving to a new location. The figures are
+        determined by using the Regional Price Parity data from the
+            <a href="https://www.bea.gov/newsreleases/regional/rpp/rpp_newsrelease.htm">
+                Bureau of EconomicAnalysis</a>
+        .</p>
+        <div class="ui two column centered grid">
+            <div class="row">
+                <div class="column">
+                    <div class="green ui statistic">
+                        <div>
+                            To have the same purchasing power in
+                        </div>
+                        <div class="label" id="pp_label" style="font-size: 24px; padding-bottom: 10px">
+                            Anchorage, AK
+                        </div>
+                        <div>
+                            You need
+                        </div>
+                        <div class="value" id="money_needed" style="font-size: 12px">
+                            $50000.00
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-      <h3 class="first">Cost of Living Calculator</h3>
-      <p>A container is a fixed width element that wraps your site's content. It remains a constant size and uses <b>margin</b> to center. Containers are the simplest way to center page content inside a grid.</code>
-      </p>
+        <p style="margin-bottom: 5px"> I live in</p>
+        <select class="ui search dropdown" id="state1" style="margin-right: 15px">
+            {% for state in drop_down_data|dictsort %}
+                <option value="{{ state[0] }}">{{ state[0] }}</option>
+            {% endfor %}
+        </select>
+        <select class="ui search dropdown" id="metro1" style="width: 300px; margin-bottom: 15px">
+        </select>
+
+        <p style="margin-bottom: 5px"> I'm thinking of moving to</p>
+        <select class="ui search dropdown" id="state2" style="margin-right: 15px">
+            {% for state in drop_down_data|dictsort %}
+                <option value="{{ state[0] }}">{{ state[0] }}</option>
+            {% endfor %}
+        </select>
+        <select class="ui search dropdown" id="metro2" style="width: 300px; margin-bottom: 15px">
+        </select>
+        <br>
+
+        <p style="margin-bottom: 5px"> I currently make</p>
+        <div class="ui right labeled input">
+            <div class="ui label">$</div>
+            <input type="number" placeholder="Amount" id="income" value="50000" style="width: 300px">
+            <div class="ui basic label">.00</div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
     </div>
     <!-- JavaScript at the bottom for fast page loading -->
     {% assets "js_all" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        <script>
+          var drop_down_data = {{ drop_down_data|tojson }};
+          (function() {
+              var state1 = document.getElementById('state1');
+              var metro_area1 = document.getElementById('metro1');
+              var state2 = document.getElementById('state2');
+              var metro_area2 = document.getElementById('metro2');
+              var income = document.getElementById('income');
+
+              state1.onchange = function () {
+                  metro_area1.length = 0;
+                  var _val = this.options[this.selectedIndex].value;
+                  for (var i in drop_down_data[_val]) {
+                      var op = document.createElement('option');
+                      op.value = drop_down_data[_val][i][0];
+                      op.text = drop_down_data[_val][i][0];
+                      metro_area1.appendChild(op);
+                  }
+
+                  if(metro_area2.options.length){
+                      set_pp();
+                  }
+              };
+              state1.onchange();
+
+              state2.onchange = function () {
+                  metro_area2.length = 0;
+                  var _val = this.options[this.selectedIndex].value;
+                  for (var i in drop_down_data[_val]) {
+                      var op = document.createElement('option');
+                      op.text = drop_down_data[_val][i][0];
+                      metro_area2.appendChild(op);
+                  }
+
+                  set_pp();
+
+              };
+              state2.onchange();
+
+
+              metro_area1.onchange = function () {
+                  set_pp();
+              }
+
+              metro_area2.onchange = function(){
+                  set_pp();
+              };
+
+              income.onchange = function () {
+                  set_pp();
+              };
+              income.onchange();
+
+              function set_pp(){
+                  var starting_state = state1.options[state1.selectedIndex].value;
+                  var starting_metro = metro_area1.options[metro_area1.selectedIndex].value;
+                  var starting_rpp = 0;
+
+                  for (var i in drop_down_data[starting_state]){
+                      if(drop_down_data[starting_state][i][0] == starting_metro){
+                          starting_rpp = drop_down_data[starting_state][i][1];
+                      }
+                  }
+
+                  var ending_state = state2.options[state2.selectedIndex].value;
+                  var ending_metro = metro_area2.options[metro_area2.selectedIndex].value;
+                  var ending_rpp = 0;
+
+                  for (var i in drop_down_data[ending_state]){
+                      if(drop_down_data[ending_state][i][0] == ending_metro){
+                          ending_rpp = drop_down_data[ending_state][i][1];
+                      }
+                  }
+
+                  var purchasing_power = (income.value/(starting_rpp * .01)) * (ending_rpp * 0.01);
+                  var e = document.getElementById('money_needed');
+                  e.innerHTML = '$' + purchasing_power.toFixed(2)
+
+                  document.getElementById('pp_label').innerHTML =
+                      metro_area2.options[metro_area2.selectedIndex].value + ", "
+                      + state2.options[state2.selectedIndex].value + "</b>";
+              }
+
+          })();
+        </script>
     {% endassets %}
     {% block js %}{% endblock %}
     <!-- end scripts -->

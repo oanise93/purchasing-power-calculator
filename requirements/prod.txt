@@ -37,3 +37,8 @@ Flask-Caching>=1.0.0
 
 # Debug toolbar
 Flask-DebugToolbar==0.10.1
+
+# CSV Handling
+numpy==1.13.0
+pandas==0.20.2
+pytz==2017.2
